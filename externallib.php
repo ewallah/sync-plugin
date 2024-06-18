@@ -37,11 +37,11 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_add_new_section_parameters() {
         return new external_function_parameters(
-            array(
+            [
                 'courseid' => new external_value( PARAM_TEXT, 'id of course' ),
                 'sectionname' => new external_value( PARAM_TEXT, 'name of section' ),
                 'sectionnum' => new external_value( PARAM_TEXT, 'position of the new section ' ),
-            )
+            ]
         );
     }
 
@@ -58,11 +58,11 @@ class local_sync_service_external extends external_api {
         // Parameter validation.
         $params = self::validate_parameters(
         self::local_sync_service_add_new_section_parameters(),
-            array(
+            [
                 'courseid' => $courseid,
                 'sectionname' => $sectionname,
                 'sectionnum' => $sectionnum,
-            )
+            ]
         );
 
         // Ensure the current user has required permission in this course.
@@ -74,8 +74,8 @@ class local_sync_service_external extends external_api {
 
         $cw = course_create_section($params['courseid'], $params['sectionnum'], false);
 
-        $section = $DB->get_record('course_sections', array('id' => $cw->id), '*', MUST_EXIST);
-        $course = $DB->get_record('course', array('id' => $section->course), '*', MUST_EXIST);
+        $section = $DB->get_record('course_sections', ['id' => $cw->id], '*', MUST_EXIST);
+        $course = $DB->get_record('course', ['id' => $section->course], '*', MUST_EXIST);
 
         $data['name'] = $params['sectionname'];
 
@@ -93,9 +93,9 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_add_new_section_returns() {
         return new external_single_structure(
-            array(
+            [
                 'message' => new external_value( PARAM_TEXT, 'if the execution was successful' ),
-            )
+            ]
         );
     }
 
@@ -106,7 +106,7 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_add_new_course_module_url_parameters() {
         return new external_function_parameters(
-            array(
+            [
                 'courseid' => new external_value( PARAM_TEXT, 'id of course' ),
                 'sectionnum' => new external_value( PARAM_TEXT, 'relative number of the section' ),
                 'urlname' => new external_value( PARAM_TEXT, 'displayed mod name' ),
@@ -114,7 +114,7 @@ class local_sync_service_external extends external_api {
                 'time' => new external_value( PARAM_TEXT, 'defines the mod. visibility', VALUE_DEFAULT, null ),
                 'visible' => new external_value( PARAM_TEXT, 'defines the mod. visibility' ),
                 'beforemod' => new external_value( PARAM_TEXT, 'mod to set before', VALUE_DEFAULT, null ),
-            )
+            ]
         );
     }
 
@@ -138,7 +138,7 @@ class local_sync_service_external extends external_api {
         // Parameter validation.
         $params = self::validate_parameters(
             self::local_sync_service_add_new_course_module_url_parameters(),
-            array(
+            [
                 'courseid' => $courseid,
                 'sectionnum' => $sectionnum,
                 'urlname' => $urlname,
@@ -146,7 +146,7 @@ class local_sync_service_external extends external_api {
                 'time' => $time,
                 'visible' => $visible,
                 'beforemod' => $beforemod,
-            )
+            ]
         );
 
         // Ensure the current user has required permission in this course.
@@ -168,7 +168,7 @@ class local_sync_service_external extends external_api {
 
         $cm = new \stdClass();
         $cm->course     = $params['courseid'];
-        $cm->module     = $DB->get_field( 'modules', 'id', array('name' => $modulename) );
+        $cm->module     = $DB->get_field( 'modules', 'id', ['name' => $modulename] );
         $cm->instance   = $instance->id;
         $cm->section    = $params['sectionnum'];
         if (!is_null($params['time'])) {
@@ -195,10 +195,10 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_add_new_course_module_url_returns() {
         return new external_single_structure(
-            array(
+            [
                 'message' => new external_value( PARAM_TEXT, 'if the execution was successful' ),
                 'id' => new external_value( PARAM_TEXT, 'cmid of the new module' ),
-            )
+            ]
         );
     }
 
@@ -208,7 +208,7 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_add_new_course_module_resource_parameters() {
         return new external_function_parameters(
-            array(
+            [
                 'courseid' => new external_value( PARAM_TEXT, 'id of course' ),
                 'sectionnum' => new external_value( PARAM_TEXT, 'relative number of the section' ),
                 'itemid' => new external_value( PARAM_TEXT, 'id of the upload' ),
@@ -216,7 +216,7 @@ class local_sync_service_external extends external_api {
                 'time' => new external_value( PARAM_TEXT, 'defines the mod. availability', VALUE_DEFAULT, null ),
                 'visible' => new external_value( PARAM_TEXT, 'defines the mod. visibility' ),
                 'beforemod' => new external_value( PARAM_TEXT, 'mod to set before', VALUE_DEFAULT, null ),
-            )
+            ]
         );
     }
 
@@ -240,7 +240,7 @@ class local_sync_service_external extends external_api {
         // Parameter validation.
         $params = self::validate_parameters(
             self::local_sync_service_add_new_course_module_resource_parameters(),
-            array(
+            [
                 'courseid' => $courseid,
                 'sectionnum' => $sectionnum,
                 'itemid' => $itemid,
@@ -248,7 +248,7 @@ class local_sync_service_external extends external_api {
                 'time' => $time,
                 'visible' => $visible,
                 'beforemod' => $beforemod,
-            )
+            ]
         );
 
         // Ensure the current user has required permission in this course.
@@ -262,7 +262,7 @@ class local_sync_service_external extends external_api {
 
         $cm = new \stdClass();
         $cm->course     = $params['courseid'];
-        $cm->module     = $DB->get_field('modules', 'id', array( 'name' => $modulename ));
+        $cm->module     = $DB->get_field('modules', 'id', [ 'name' => $modulename ]);
         $cm->section    = $params['sectionnum'];
         if (!is_null($params['time'])) {
             $cm->availability = "{\"op\":\"&\",\"c\":[{\"type\":\"date\",\"d\":\">=\",\"t\":" . $params['time'] . "}],\"showc\":[" . $params['visible'] . "]}";
@@ -297,10 +297,10 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_add_new_course_module_resource_returns() {
         return new external_single_structure(
-            array(
+            [
                 'message' => new external_value( PARAM_TEXT, 'if the execution was successful' ),
                 'id' => new external_value( PARAM_TEXT, 'cmid of the new module' ),
-            )
+            ]
         );
     }
 
@@ -310,11 +310,11 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_move_module_to_specific_position_parameters() {
         return new external_function_parameters(
-            array(
+            [
                 'cmid' => new external_value( PARAM_TEXT, 'id of module' ),
                 'sectionid' => new external_value( PARAM_TEXT, 'relative number of the section' ),
                 'beforemod' => new external_value( PARAM_TEXT, 'mod to set before', VALUE_DEFAULT, null ),
-            )
+            ]
         );
     }
 
@@ -333,11 +333,11 @@ class local_sync_service_external extends external_api {
         // Parameter validation.
         $params = self::validate_parameters(
             self::local_sync_service_move_module_to_specific_position_parameters(),
-            array(
+            [
                 'cmid' => $cmid,
                 'sectionid' => $sectionid,
                 'beforemod' => $beforemod,
-            )
+            ]
         );
 
         // Ensure the current user has required permission.
@@ -353,7 +353,7 @@ class local_sync_service_external extends external_api {
         // Required permissions.
         require_capability('moodle/course:movesections', $context);
 
-        $section = $DB->get_record('course_sections', array( 'id' => $params['sectionid'], 'course' => $cm->course ));
+        $section = $DB->get_record('course_sections', [ 'id' => $params['sectionid'], 'course' => $cm->course ]);
 
         moveto_module($cm, $section, $params['beforemod']);
 
@@ -369,9 +369,9 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_move_module_to_specific_position_returns() {
         return new external_single_structure(
-            array(
-                'message' => new external_value( PARAM_TEXT, 'if the execution was successful' )
-            )
+            [
+                'message' => new external_value( PARAM_TEXT, 'if the execution was successful' ),
+            ]
         );
     }
 
@@ -381,7 +381,7 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_add_new_course_module_directory_parameters() {
         return new external_function_parameters(
-            array(
+            [
                 'courseid' => new external_value( PARAM_TEXT, 'id of course' ),
                 'sectionnum' => new external_value( PARAM_TEXT, 'relative number of the section' ),
                 'itemid' => new external_value( PARAM_TEXT, 'id of the upload' ),
@@ -389,7 +389,7 @@ class local_sync_service_external extends external_api {
                 'time' => new external_value( PARAM_TEXT, 'defines the mod. visibility', VALUE_DEFAULT, null ),
                 'visible' => new external_value( PARAM_TEXT, 'defines the mod. visibility' ),
                 'beforemod' => new external_value( PARAM_TEXT, 'mod to set before', VALUE_DEFAULT, null ),
-            )
+            ]
         );
     }
 
@@ -412,7 +412,7 @@ class local_sync_service_external extends external_api {
         // Parameter validation.
         $params = self::validate_parameters(
             self::local_sync_service_add_new_course_module_directory_parameters(),
-            array(
+            [
                 'courseid' => $courseid,
                 'sectionnum' => $sectionnum,
                 'itemid' => $itemid,
@@ -420,7 +420,7 @@ class local_sync_service_external extends external_api {
                 'time' => $time,
                 'visible' => $visible,
                 'beforemod' => $beforemod,
-            )
+            ]
         );
 
         // Ensure the current user has required permission in this course.
@@ -434,7 +434,7 @@ class local_sync_service_external extends external_api {
 
         $cm = new \stdClass();
         $cm->course     = $params['courseid'];
-        $cm->module     = $DB->get_field('modules', 'id', array( 'name' => $modulename ));
+        $cm->module     = $DB->get_field('modules', 'id', [ 'name' => $modulename ]);
         $cm->section    = $params['sectionnum'];
         if (!is_null($params['time'])) {
             $cm->availability = "{\"op\":\"&\",\"c\":[{\"type\":\"date\",\"d\":\">=\",\"t\":" . $params['time'] . "}],\"showc\":[" . $params['visible'] . "]}";
@@ -468,10 +468,10 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_add_new_course_module_directory_returns() {
         return new external_single_structure(
-            array(
+            [
                 'message' => new external_value( PARAM_TEXT, 'if the execution was successful' ),
                 'id' => new external_value( PARAM_TEXT, 'cmid of the new module' ),
-            )
+            ]
         );
     }
 
@@ -481,11 +481,11 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_add_files_to_directory_parameters() {
         return new external_function_parameters(
-            array(
+            [
                 'courseid' => new external_value( PARAM_TEXT, 'id of course' ),
                 'itemid' => new external_value( PARAM_TEXT, 'id of the upload' ),
                 'contextid' => new external_value( PARAM_TEXT, 'contextid of folder' ),
-            )
+            ]
         );
     }
 
@@ -504,11 +504,11 @@ class local_sync_service_external extends external_api {
         // Parameter validation.
         $params = self::validate_parameters(
             self::local_sync_service_add_files_to_directory_parameters(),
-            array(
+            [
                 'courseid' => $courseid,
                 'itemid' => $itemid,
                 'contextid' => $contextid,
-            )
+            ]
         );
 
         // Ensure the current user has required permission in this course.
@@ -532,9 +532,9 @@ class local_sync_service_external extends external_api {
      */
     public static function local_sync_service_add_files_to_directory_returns() {
         return new external_single_structure(
-            array(
+            [
                 'message' => new external_value( PARAM_TEXT, 'if the execution was successful' ),
-                )
+                ]
         );
     }
 }

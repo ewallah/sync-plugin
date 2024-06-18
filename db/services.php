@@ -23,8 +23,8 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-$functions = array(
-    'local_course_add_new_section' => array(
+$functions = [
+    'local_course_add_new_section' => [
         'classname' => 'local_sync_service_external',
         'methodname' => 'local_sync_service_add_new_section',
         'classpath' => 'local/sync_service/externallib.php',
@@ -32,8 +32,8 @@ $functions = array(
         'type' => 'write',
         'ajax' => true,
         'capabilities' => 'block/section_links:addinstance',
-    ),
-    'local_course_add_new_course_module_url' => array(
+    ],
+    'local_course_add_new_course_module_url' => [
         'classname' => 'local_sync_service_external',
         'methodname' => 'local_sync_service_add_new_course_module_url',
         'classpath' => 'local/sync_service/externallib.php',
@@ -41,8 +41,8 @@ $functions = array(
         'type' => 'write',
         'ajax' => true,
         'capabilities' => 'mod/url:addinstance',
-    ),
-    'local_course_add_new_course_module_resource' => array(
+    ],
+    'local_course_add_new_course_module_resource' => [
         'classname' => 'local_sync_service_external',
         'methodname' => 'local_sync_service_add_new_course_module_resource',
         'classpath' => 'local/sync_service/externallib.php',
@@ -50,41 +50,41 @@ $functions = array(
         'type' => 'write',
         'ajax' => true,
         'capabilities' => 'mod/resource:addinstance',
-    ),
-    'local_course_move_module_to_specific_position' => array(
+    ],
+    'local_course_move_module_to_specific_position' => [
         'classname' => 'local_sync_service_external',
         'methodname' => 'local_sync_service_move_module_to_specific_position',
         'classpath' => 'local/sync_service/externallib.php',
         'description' => 'Moves a module to a dedicated position',
         'type' => 'write',
         'ajax' => true,
-        'capabilities' => 'moodle/course:movesections'
-    ),
-    'local_course_add_new_course_module_directory' => array(
+        'capabilities' => 'moodle/course:movesections',
+    ],
+    'local_course_add_new_course_module_directory' => [
         'classname' => 'local_sync_service_external',
         'methodname' => 'local_sync_service_add_new_course_module_directory',
         'classpath' => 'local/sync_service/externallib.php',
         'description' => 'Add course modul folder',
         'type' => 'write',
         'ajax' => true,
-        'capabilities' => 'mod/folder:addinstance'
-    ),
-    'local_course_add_files_to_directory' => array(
+        'capabilities' => 'mod/folder:addinstance',
+    ],
+    'local_course_add_files_to_directory' => [
         'classname' => 'local_sync_service_external',
         'methodname' => 'local_sync_service_add_files_to_directory',
         'classpath' => 'local/sync_service/externallib.php',
         'description' => 'Add files to folder',
         'type' => 'write',
         'ajax' => true,
-        'capabilities' => 'mod/folder:managefiles'
-    )
+        'capabilities' => 'mod/folder:managefiles',
+    ],
 
 
-);
+];
 
-$services = array(
-    'Course Sync Extension Service' => array(
-        'functions' => array(
+$services = [
+    'Course Sync Extension Service' => [
+        'functions' => [
             'local_course_add_new_section',
             'local_course_add_new_course_module_url',
             'local_course_add_new_course_module_resource',
@@ -95,12 +95,12 @@ $services = array(
             'core_enrol_get_users_courses',
             'core_webservice_get_site_info',
             'core_course_delete_modules',
-            'core_course_get_user_administration_options'
-        ),
+            'core_course_get_user_administration_options',
+        ],
         'restrictedusers' => 0,
         'enabled' => 1,
         'shortname' => 'sync_service',
         'downloadfiles' => 1,
-        'uploadfiles'  => 1
-    )
-);
+        'uploadfiles'  => 1,
+    ],
+];
